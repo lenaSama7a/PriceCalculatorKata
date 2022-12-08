@@ -10,8 +10,14 @@ namespace PriceCalculatorKata
     {
         public static void SetTaxByCustomer()
         {
-            Print.AskCustomerAboutTaxAmount();
-            Tax.TaxAmount = Convert.ToDecimal(Console.ReadLine());
+            Print.AskCustomerAboutTax();
+            Tax.TaxPercentage = Convert.ToDecimal(Console.ReadLine());
+        }
+
+        public static void SetDiscountByCustomer()
+        {
+            Print.AskCustomerAboutDiscount();
+            Discount.DiscountPercentage = Convert.ToDecimal(Console.ReadLine());
         }
     }
 }
