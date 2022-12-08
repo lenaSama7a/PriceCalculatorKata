@@ -6,6 +6,7 @@ namespace PriceCalculatorKata
         public static void Main()
         {
             UserInterface.SetTaxByCustomer();
+            UserInterface.SetDiscountByCustomer();
 
             Product product1 = new()
             {
@@ -13,9 +14,7 @@ namespace PriceCalculatorKata
                 UPC = 12345,
                 Price = 20.25m
             };
-            Print.PrintProductInfo(product1);
-            Print.PrintBasePrice(product1);
-            Print.PrintPriceWithTax(product1);
+            Print.PrintAllInfo(product1);
 
 
         }

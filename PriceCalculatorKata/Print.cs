@@ -17,18 +17,55 @@ namespace PriceCalculatorKata
         }
         public static void PrintBasePrice(Product product)
         {
-            Console.Write($"Product price reported as ${product.Price} before tax");
+            Console.WriteLine($"Product price before: ${product.Price}");
 
         }
-        public static void PrintPriceWithTax(Product product)
+        public static void PrintPriceWithTaxAndDiscount(Product product)
         {
-            Console.WriteLine(" and $"+PriceWithTax.CalculatePriceWithTax(product)+ " after "+Tax.TaxAmount + " tax");
+            Console.WriteLine($"Product price after Tax and discount ${PriceWithTaxAndDiscount.FinalPrice(product)}");
 
         }
 
-        public static void AskCustomerAboutTaxAmount()
+        public static void PrintTaxPercentage(Product product)
+        {
+            Console.WriteLine("Tax= " + Tax.TaxPercentage );
+        }
+        public static void PrintDiscountPercentage(Product product)
+        {
+            Console.WriteLine("Discount = " + Discount.DiscountPercentage);
+        }
+
+        public static void PrintTaxAmount(Product product)
+        {
+            Console.WriteLine("Tax Amount = " + PriceWithTax.TaxAmount(product));
+        }
+
+        public static void PrintDiscountAmount(Product product)
+        {
+            Console.WriteLine("Discount Amount = " + PriceWithDiscount.DiscountAmount(product));
+        }
+
+        public static void AskCustomerAboutTax()
         {
             Console.WriteLine("Hello, How much is the tax imposed on the products?");
         }
+
+        public static void AskCustomerAboutDiscount()
+        {
+            Console.WriteLine("How much is the discount?");
+        }
+
+        public static void PrintAllInfo(Product prod)
+        {
+            PrintProductInfo(prod);
+            PrintTaxPercentage(prod);
+            PrintDiscountPercentage(prod);
+            PrintTaxAmount(prod);
+            PrintDiscountAmount(prod);
+            PrintBasePrice(prod);
+            PrintPriceWithTaxAndDiscount(prod);
+
+        }
+        
     }
 }

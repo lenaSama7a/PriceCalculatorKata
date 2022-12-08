@@ -9,10 +9,10 @@ namespace PriceCalculatorKata
     public class PriceWithTax
     {
 
-        public static decimal CalculatePriceWithTax(Product product)
+        public static decimal TaxAmount(Product product)
         {
-            decimal price = product.Price;
-            return Math.Round(price + (price * Tax.TaxAmount) , 2);
+            return Math.Round((product.Price * Tax.TaxPercentage),2);
         }
+
     }
 }
