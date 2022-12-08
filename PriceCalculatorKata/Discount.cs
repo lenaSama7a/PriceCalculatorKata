@@ -8,6 +8,7 @@ namespace PriceCalculatorKata
 {
     public class Discount
     {
+        public static bool HasDiscount { get; set; }
         public static decimal DiscountPercentage { get; set; }
 
     }

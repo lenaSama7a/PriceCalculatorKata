@@ -13,11 +13,23 @@ namespace PriceCalculatorKata
             Print.AskCustomerAboutTax();
             Tax.TaxPercentage = Convert.ToDecimal(Console.ReadLine());
         }
-
+        public static void SetHasDiscount(bool hasDiscount)
+        {
+            Discount.HasDiscount = hasDiscount;
+        }
         public static void SetDiscountByCustomer()
         {
-            Print.AskCustomerAboutDiscount();
-            Discount.DiscountPercentage = Convert.ToDecimal(Console.ReadLine());
+            if(Discount.HasDiscount == true)
+            {
+                Print.AskCustomerAboutDiscount();
+                Discount.DiscountPercentage = Convert.ToDecimal(Console.ReadLine());
+            }
+            else
+            {
+                Discount.DiscountPercentage = 0;
+
+            }
+
         }
     }
 }

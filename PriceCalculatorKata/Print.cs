@@ -10,9 +10,14 @@ namespace PriceCalculatorKata
     {
         public static void PrintProductInfo(Product product)
         {
+            Console.ForegroundColor = ConsoleColor.Blue;
+
             Console.WriteLine($"Sample product: Book with name = {product.Name}," +
                 $" UPC = {product.UPC}," +
                 $" Price = ${product.Price}");
+
+            Console.ForegroundColor = ConsoleColor.Gray;
+
 
         }
         public static void PrintBasePrice(Product product)
@@ -22,7 +27,7 @@ namespace PriceCalculatorKata
         }
         public static void PrintPriceWithTaxAndDiscount(Product product)
         {
-            Console.WriteLine($"Product price after Tax and discount ${PriceWithTaxAndDiscount.FinalPrice(product)}");
+            Console.WriteLine($"Product price after : ${PriceWithTaxAndDiscount.FinalPrice(product)}");
 
         }
 
@@ -32,7 +37,15 @@ namespace PriceCalculatorKata
         }
         public static void PrintDiscountPercentage(Product product)
         {
-            Console.WriteLine("Discount = " + Discount.DiscountPercentage);
+            if (Discount.HasDiscount)
+                Console.WriteLine("Discount = " + Discount.DiscountPercentage);
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("no discount");
+                Console.ForegroundColor = ConsoleColor.Gray;
+
+            }
         }
 
         public static void PrintTaxAmount(Product product)
@@ -42,7 +55,9 @@ namespace PriceCalculatorKata
 
         public static void PrintDiscountAmount(Product product)
         {
-            Console.WriteLine("Discount Amount = " + PriceWithDiscount.DiscountAmount(product));
+            if (Discount.HasDiscount)
+                Console.WriteLine("Discount Amount = " + PriceWithDiscount.DiscountAmount(product) + " was deduced");
+
         }
 
         public static void AskCustomerAboutTax()
@@ -66,6 +81,5 @@ namespace PriceCalculatorKata
             PrintPriceWithTaxAndDiscount(prod);
 
         }
-        
     }
 }
