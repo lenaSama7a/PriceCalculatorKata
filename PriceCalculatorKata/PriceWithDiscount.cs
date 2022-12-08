@@ -10,7 +10,7 @@ namespace PriceCalculatorKata
     {
         public static decimal DiscountAmount(Product product)
         {
-            return Math.Round((product.Price * Discount.DiscountPercentage),2);
+            return Discount.HasDiscount ? Math.Round((product.Price * Discount.DiscountPercentage), 2) : 0;
         }
 
         public static decimal PriceAfterDiscount(Product product)
