@@ -89,15 +89,22 @@ namespace PriceCalculatorKata
         public static void PrintUPCDiscountAmount(Product product)
         {
             if(UPCDiscount.HasUPCDiscount(product))
-            Console.WriteLine("UPC Discount Amount: " + PriceWithUPCDiscount.DiscountAmount(product));
+            Console.Write("UPC Discount Amount: " + PriceWithUPCDiscount.DiscountAmount(product));
+            if (UPCDiscount.BeforeTax)
+            {
+                Console.WriteLine(" Before Tax");
+            }
 
         }
 
         public static void PrintUPCDiscountPercentage(Product product)
         {
             if (UPCDiscount.HasUPCDiscount(product))
-                Console.WriteLine("UPC Discount Percentage: " + UPCDiscount.UPCDiscountPercentage(product));
-
+                Console.Write("UPC Discount Percentage: " + UPCDiscount.UPCDiscountPercentage(product));
+            if (UPCDiscount.BeforeTax)
+            {
+                Console.WriteLine(" Before Tax");
+            }
         }
     }
 }

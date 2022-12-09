@@ -10,10 +10,10 @@ namespace PriceCalculatorKata
     {
         public static decimal FinalPrice(Product product)
         {
-            decimal priceAfterDiscount = PriceWithDiscount.PriceAfterDiscount(product);
+            decimal discountAmount = PriceWithDiscount.DiscountAmount(product);
             decimal taxAmount = PriceWithTax.TaxAmount(product);
             decimal UPCDiscountAmount = PriceWithUPCDiscount.DiscountAmount(product);
-            return Math.Round(priceAfterDiscount - UPCDiscountAmount + taxAmount , 2);
+            return Math.Round(product.Price - discountAmount - UPCDiscountAmount + taxAmount, 2);
         }
     }
 }
