@@ -41,5 +41,47 @@ namespace PriceCalculatorKata
         {
             UPCDiscount.BeforeTax = beforeTax;
         }
+
+
+        public static void HasPackagingCosts(bool hasPackagingCosts)
+        {
+            PackagingCosts.HasPackagingCost = hasPackagingCosts;
+        }
+
+        public static void HasTransportCosts(bool hasTransportCosts)
+        {
+            TransportCosts.HasTransportCost = hasTransportCosts;
+        }
+
+        public static void SetPackagingCosts(Product prod)
+        {
+            if (PackagingCosts.HasPackagingCost)
+            {
+                Print.AskCustomerAboutPackagingCosts();
+                decimal amount;
+                String input = Console.ReadLine();
+                PackagingCosts.Amount = Costs.InputToAmountFormatting(prod, input);
+
+            }
+
+
+            // ICosts Packaging = new PackagingCosts();
+            // Packaging.Amount = amount;
+            //PackagingCosts.Amount = amount;
+        }
+
+        public static void SetTransportCosts(Product prod)
+        {
+            if (TransportCosts.HasTransportCost)
+            {
+                Print.AskCustomerAboutTransportCosts();
+                decimal amount;
+                String input = Console.ReadLine();
+
+                TransportCosts.Amount = Costs.InputToAmountFormatting(prod, input);
+            }
+            
+            
+        }
     }
 }

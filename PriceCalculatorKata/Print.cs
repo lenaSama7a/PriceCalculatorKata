@@ -33,7 +33,7 @@ namespace PriceCalculatorKata
 
         public static void PrintTaxPercentage(Product product)
         {
-            Console.WriteLine("Tax= " + Tax.TaxPercentage );
+            Console.WriteLine("Tax= " + Tax.TaxPercentage);
         }
         public static void PrintDiscountPercentage(Product product)
         {
@@ -81,6 +81,8 @@ namespace PriceCalculatorKata
             PrintDiscountAmount(prod);
             PrintUPCDiscountAmount(prod);
 
+            PrintTotalCosts();
+
             PrintBasePrice(prod);
             PrintPriceWithTaxAndDiscount(prod);
 
@@ -88,8 +90,8 @@ namespace PriceCalculatorKata
 
         public static void PrintUPCDiscountAmount(Product product)
         {
-            if(UPCDiscount.HasUPCDiscount(product))
-            Console.Write("UPC Discount Amount: " + PriceWithUPCDiscount.DiscountAmount(product));
+            if (UPCDiscount.HasUPCDiscount(product))
+                Console.WriteLine("UPC Discount Amount: " + PriceWithUPCDiscount.DiscountAmount(product));
             if (UPCDiscount.BeforeTax)
             {
                 Console.WriteLine(" Before Tax");
@@ -100,11 +102,41 @@ namespace PriceCalculatorKata
         public static void PrintUPCDiscountPercentage(Product product)
         {
             if (UPCDiscount.HasUPCDiscount(product))
-                Console.Write("UPC Discount Percentage: " + UPCDiscount.UPCDiscountPercentage(product));
+                Console.WriteLine("UPC Discount Percentage: " + UPCDiscount.UPCDiscountPercentage(product));
             if (UPCDiscount.BeforeTax)
             {
                 Console.WriteLine(" Before Tax");
             }
+        }
+
+        public static void AskCustomerAboutPackagingCosts()
+        {
+            Console.WriteLine("How much Packaging costs?");
+        }
+
+        public static void PrintPackagingCosts()
+        {
+            PackagingCosts.Description(); 
+        }
+
+        public static void AskCustomerAboutTransportCosts()
+        {
+            Console.WriteLine("How much Transport costs?");
+        }
+
+        public static void PrintTransportCosts()
+        {
+            TransportCosts.Description();
+        }
+
+        public static void PrintTotalCosts()
+        {
+            if(Costs.CalculateCostsAmount() > 0)
+            {
+                PrintTransportCosts();
+                PrintPackagingCosts();
+            }
+
         }
     }
 }
