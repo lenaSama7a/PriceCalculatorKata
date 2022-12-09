@@ -75,10 +75,28 @@ namespace PriceCalculatorKata
             PrintProductInfo(prod);
             PrintTaxPercentage(prod);
             PrintDiscountPercentage(prod);
+            PrintUPCDiscountPercentage(prod);
+
             PrintTaxAmount(prod);
             PrintDiscountAmount(prod);
+            PrintUPCDiscountAmount(prod);
+
             PrintBasePrice(prod);
             PrintPriceWithTaxAndDiscount(prod);
+
+        }
+
+        public static void PrintUPCDiscountAmount(Product product)
+        {
+            if(UPCDiscount.HasUPCDiscount(product))
+            Console.WriteLine("UPC Discount Amount: " + PriceWithUPCDiscount.DiscountAmount(product));
+
+        }
+
+        public static void PrintUPCDiscountPercentage(Product product)
+        {
+            if (UPCDiscount.HasUPCDiscount(product))
+                Console.WriteLine("UPC Discount Percentage: " + UPCDiscount.UPCDiscountPercentage(product));
 
         }
     }

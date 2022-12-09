@@ -8,6 +8,7 @@ namespace PriceCalculatorKata
             UserInterface.SetTaxByCustomer();
             UserInterface.SetHasDiscount(true);
             UserInterface.SetDiscountByCustomer();
+            UserInterface.AddUPCDiscount(12345, 0.07m);
 
             Product product1 = new()
             {
