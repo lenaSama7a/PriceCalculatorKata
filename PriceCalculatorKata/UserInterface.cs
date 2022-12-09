@@ -36,5 +36,10 @@ namespace PriceCalculatorKata
 
             UPCDiscount.UPCDiscountList.Add(UPC, discountPercentage);
         }
+
+        public static void SetBeforeTaxDiscount(bool beforeTax)
+        {
+            UPCDiscount.BeforeTax = beforeTax;
+        }
     }
 }

@@ -9,7 +9,7 @@ namespace PriceCalculatorKata
     public class UPCDiscount
     {
         public static Dictionary<int, decimal>? UPCDiscountList = new();
-
+        public static bool BeforeTax = false;
 
         public static decimal UPCDiscountPercentage(Product product)
         {
