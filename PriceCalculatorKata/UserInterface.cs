@@ -31,5 +31,10 @@ namespace PriceCalculatorKata
             }
 
         }
+        public static void AddUPCDiscount(int UPC, decimal discountPercentage)
+        {
+
+            UPCDiscount.UPCDiscountList.Add(UPC, discountPercentage);
+        }
     }
 }

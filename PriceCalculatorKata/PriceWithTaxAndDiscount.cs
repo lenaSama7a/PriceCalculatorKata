@@ -12,7 +12,8 @@ namespace PriceCalculatorKata
         {
             decimal priceAfterDiscount = PriceWithDiscount.PriceAfterDiscount(product);
             decimal taxAmount = PriceWithTax.TaxAmount(product);
-            return Math.Round(priceAfterDiscount + taxAmount, 2);
+            decimal UPCDiscountAmount = PriceWithUPCDiscount.DiscountAmount(product);
+            return Math.Round(priceAfterDiscount - UPCDiscountAmount + taxAmount , 2);
         }
     }
 }
