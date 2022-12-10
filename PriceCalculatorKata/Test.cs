@@ -14,16 +14,22 @@ namespace PriceCalculatorKata
             UserInterface.SetDiscountType("Additive");
             //UserInterface.SetDiscountType("Multiplicative");
 
+            
             Product product1 = new()
             {
                 Name = "The Little Prince",
                 UPC = 12345,
                 Price = 20.25m
             };
-            UserInterface.HasPackagingCosts(true);
-            UserInterface.HasTransportCosts(true);
+            UserInterface.HasPackagingCosts(false);
+            UserInterface.HasTransportCosts(false);
             UserInterface.SetPackagingCosts(product1); 
             UserInterface.SetTransportCosts(product1);
+
+            UserInterface.HasCap(true);
+            UserInterface.SetCap(product1); 
+            // cap is applied to all product not just for product1, but I have to use product.price inside cap methods
+
 
             Print.PrintAllInfo(product1);
 

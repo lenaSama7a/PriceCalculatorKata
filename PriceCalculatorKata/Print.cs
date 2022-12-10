@@ -141,8 +141,11 @@ namespace PriceCalculatorKata
         }
         public static void PrintTotalDiscount(Product prod)
         {
-            decimal totalDiscount = PriceWithDiscount.DiscountAmount(prod) + PriceWithUPCDiscount.DiscountAmount(prod);
-            Console.WriteLine("Total Discount: "+ totalDiscount);
+            Console.WriteLine("Total Discount: "+ PriceWithTaxAndDiscount.TotalDiscount(prod));
         }
+
+        internal static void AskCustomerAboutCapAmount()
+        {
+            Console.WriteLine("How much cap amount? ");        }
     }
 }
