@@ -24,10 +24,18 @@ namespace PriceCalculatorKata
 
         public static decimal UsingDiscountOrCap(Product prod)
         {
-            if (TotalDiscount(prod) >= Cap.CapAmount)
-                return Cap.CapAmount;
+            if (Cap.HasCap)
+            {
+                if (TotalDiscount(prod) >= Cap.CapAmount)
+                    return Cap.CapAmount;
+                else
+                    return TotalDiscount(prod);
+
+            }
             else
                 return TotalDiscount(prod);
+
+
         }
     }
 }

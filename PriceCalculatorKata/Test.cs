@@ -11,8 +11,8 @@ namespace PriceCalculatorKata
             UserInterface.AddUPCDiscount(12345, 0.07m);
             UserInterface.SetBeforeTaxDiscount(false);
 
-            UserInterface.SetDiscountType("Additive");
-            //UserInterface.SetDiscountType("Multiplicative");
+            //UserInterface.SetDiscountType("Additive");
+            UserInterface.SetDiscountType("Multiplicative");
 
             
             Product product1 = new()
@@ -21,12 +21,12 @@ namespace PriceCalculatorKata
                 UPC = 12345,
                 Price = 20.25m
             };
-            UserInterface.HasPackagingCosts(false);
-            UserInterface.HasTransportCosts(false);
+            UserInterface.HasPackagingCosts(true);
+            UserInterface.HasTransportCosts(true);
             UserInterface.SetPackagingCosts(product1); 
             UserInterface.SetTransportCosts(product1);
 
-            UserInterface.HasCap(true);
+           UserInterface.HasCap(false);
             UserInterface.SetCap(product1); 
             // cap is applied to all product not just for product1, but I have to use product.price inside cap methods
 
