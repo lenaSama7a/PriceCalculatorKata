@@ -11,7 +11,7 @@ namespace PriceCalculatorKata
 
         public static decimal CalculateCostsAmount()
         {
-            return PackagingCosts.Amount + TransportCosts.Amount;
+            return Math.Round( PackagingCosts.Amount + TransportCosts.Amount,2);
         }
 
         public static decimal InputToAmountFormatting(Product prod, String input)
@@ -20,7 +20,7 @@ namespace PriceCalculatorKata
             char lastCharacter = input[input.Length - 1];
             if (lastCharacter == '%')
             {
-                amount = prod.Price * (Convert.ToDecimal(input.Remove(input.Length - 1, 1)) / 100);
+                amount = Math.Round(prod.Price * (Convert.ToDecimal(input.Remove(input.Length - 1, 1)) / 100),2);
             }
             else
             {
