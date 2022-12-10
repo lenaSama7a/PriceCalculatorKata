@@ -58,9 +58,8 @@ namespace PriceCalculatorKata
             if (PackagingCosts.HasPackagingCost)
             {
                 Print.AskCustomerAboutPackagingCosts();
-                decimal amount;
                 String input = Console.ReadLine();
-                PackagingCosts.Amount = Costs.InputToAmountFormatting(prod, input);
+                PackagingCosts.Amount = FixInputFormat.InputToAmountFormatting(prod, input);
 
             }
 
@@ -75,16 +74,29 @@ namespace PriceCalculatorKata
             if (TransportCosts.HasTransportCost)
             {
                 Print.AskCustomerAboutTransportCosts();
-                decimal amount;
                 String input = Console.ReadLine();
 
-                TransportCosts.Amount = Costs.InputToAmountFormatting(prod, input);
+                TransportCosts.Amount = FixInputFormat.InputToAmountFormatting(prod, input);
             }
         }
 
         public static void SetDiscountType(string discountType)
         {
             Discount.DiscountType = discountType;
+        }
+
+        public static void HasCap(bool hasCap)
+        {
+            Cap.HasCap = hasCap;
+        }
+        public static void SetCap(Product prod)
+        {
+            if (Cap.HasCap)
+            {
+                Print.AskCustomerAboutCapAmount();
+                String input = Console.ReadLine();
+                Cap.CapAmount = FixInputFormat.InputToAmountFormatting(prod, input);
+            }
         }
     }
 }

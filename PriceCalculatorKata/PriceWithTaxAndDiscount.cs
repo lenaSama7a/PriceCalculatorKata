@@ -14,7 +14,28 @@ namespace PriceCalculatorKata
             decimal taxAmount = PriceWithTax.TaxAmount(product);
             decimal UPCDiscountAmount = PriceWithUPCDiscount.DiscountAmount(product);
             
-            return Math.Round(product.Price - discountAmount - UPCDiscountAmount + taxAmount + Costs.CalculateCostsAmount(), 2);
+            return Math.Round(product.Price - UsingDiscountOrCap(product) + taxAmount + Costs.CalculateCostsAmount(), 2);
+        }
+
+        public static decimal TotalDiscount(Product product)
+        {
+            return (PriceWithDiscount.DiscountAmount(product) + PriceWithUPCDiscount.DiscountAmount(product));
+        }
+
+        public static decimal UsingDiscountOrCap(Product prod)
+        {
+            if (Cap.HasCap)
+            {
+                if (TotalDiscount(prod) >= Cap.CapAmount)
+                    return Cap.CapAmount;
+                else
+                    return TotalDiscount(prod);
+
+            }
+            else
+                return TotalDiscount(prod);
+
+
         }
     }
 }
