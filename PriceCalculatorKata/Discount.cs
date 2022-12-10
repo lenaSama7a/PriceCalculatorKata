@@ -10,6 +10,7 @@ namespace PriceCalculatorKata
     {
         public static bool HasDiscount { get; set; }
         public static decimal DiscountPercentage { get; set; }
+        public static string? DiscountType { get; set; }
 
     }
 }

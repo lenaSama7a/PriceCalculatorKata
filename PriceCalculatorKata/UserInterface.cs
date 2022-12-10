@@ -80,8 +80,11 @@ namespace PriceCalculatorKata
 
                 TransportCosts.Amount = Costs.InputToAmountFormatting(prod, input);
             }
-            
-            
+        }
+
+        public static void SetDiscountType(string discountType)
+        {
+            Discount.DiscountType = discountType;
         }
     }
 }

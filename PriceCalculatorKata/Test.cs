@@ -11,7 +11,8 @@ namespace PriceCalculatorKata
             UserInterface.AddUPCDiscount(12345, 0.07m);
             UserInterface.SetBeforeTaxDiscount(false);
 
-
+            UserInterface.SetDiscountType("Additive");
+            //UserInterface.SetDiscountType("Multiplicative");
 
             Product product1 = new()
             {
@@ -23,7 +24,6 @@ namespace PriceCalculatorKata
             UserInterface.HasTransportCosts(true);
             UserInterface.SetPackagingCosts(product1); 
             UserInterface.SetTransportCosts(product1);
-            // I think it's wrong to send product1, but how to convert format from 1% to 1.2, I need product.price
 
             Print.PrintAllInfo(product1);
 

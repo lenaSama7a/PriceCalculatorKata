@@ -82,6 +82,7 @@ namespace PriceCalculatorKata
             PrintUPCDiscountAmount(prod);
 
             PrintTotalCosts();
+            PrintTotalDiscount(prod);
 
             PrintBasePrice(prod);
             PrintPriceWithTaxAndDiscount(prod);
@@ -137,6 +138,11 @@ namespace PriceCalculatorKata
                 PrintPackagingCosts();
             }
 
+        }
+        public static void PrintTotalDiscount(Product prod)
+        {
+            decimal totalDiscount = PriceWithDiscount.DiscountAmount(prod) + PriceWithUPCDiscount.DiscountAmount(prod);
+            Console.WriteLine("Total Discount: "+ totalDiscount);
         }
     }
 }
