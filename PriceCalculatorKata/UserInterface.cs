@@ -8,83 +8,96 @@ namespace PriceCalculatorKata
 {
     public class UserInterface
     {
-        public static void SetTaxByCustomer()
+        Print print = new();
+        public void SetTaxByCustomer(Tax tax)
         {
-            Print.AskCustomerAboutTax();
-            Tax.TaxPercentage = Convert.ToDecimal(Console.ReadLine());
+            print.AskCustomerAboutTax();
+            tax.TaxPercentage = Convert.ToDecimal(Console.ReadLine());
         }
-        public static void SetHasDiscount(bool hasDiscount)
+        public void SetHasDiscount(bool hasDiscount, AllDiscounts allDiscounts)
         {
-            Discount.HasDiscount = hasDiscount;
+
+            allDiscounts.discount.HasDiscount = hasDiscount;
         }
-        public static void SetDiscountByCustomer()
+        public void SetDiscountByCustomer(AllDiscounts allDiscounts)
         {
-            if(Discount.HasDiscount == true)
+            if(allDiscounts.discount.HasDiscount == true)
             {
-                Print.AskCustomerAboutDiscount();
-                Discount.DiscountPercentage = Convert.ToDecimal(Console.ReadLine());
+                print.AskCustomerAboutDiscount();
+                allDiscounts.discount.DiscountPercentage = Convert.ToDecimal(Console.ReadLine());
             }
             else
             {
-                Discount.DiscountPercentage = 0;
-
+                allDiscounts.discount.DiscountPercentage = 0;
             }
 
         }
-        public static void AddUPCDiscount(int UPC, decimal discountPercentage)
+        public void AddUPCDiscount(int UPC, decimal discountPercentage, AllDiscounts allDiscounts)
         {
 
-            UPCDiscount.UPCDiscountList.Add(UPC, discountPercentage);
+            allDiscounts.upcDiscount.UPCDiscountList.Add(UPC, discountPercentage);
         }
 
-        public static void SetBeforeTaxDiscount(bool beforeTax)
+        public void SetBeforeTaxDiscount(bool beforeTax, AllDiscounts allDiscounts)
         {
-            UPCDiscount.BeforeTax = beforeTax;
+            allDiscounts.upcDiscount.BeforeTax = beforeTax;
         }
 
-
-        public static void HasPackagingCosts(bool hasPackagingCosts)
+        public void HasPackagingCosts(bool hasPackagingCosts, PackagingCosts packagingCosts)
         {
-            PackagingCosts.HasPackagingCost = hasPackagingCosts;
+            packagingCosts.HasPackagingCost = hasPackagingCosts;
         }
 
-        public static void HasTransportCosts(bool hasTransportCosts)
+        public void HasTransportCosts(bool hasTransportCosts, TransportCosts transportCosts)
         {
-            TransportCosts.HasTransportCost = hasTransportCosts;
+            transportCosts.HasTransportCost = hasTransportCosts;
         }
 
-        public static void SetPackagingCosts(Product prod)
+        public void SetPackagingCosts(Product prod, PackagingCosts packagingCosts)
         {
-            if (PackagingCosts.HasPackagingCost)
+            if (packagingCosts.HasPackagingCost)
             {
-                Print.AskCustomerAboutPackagingCosts();
-                decimal amount;
+                print.AskCustomerAboutPackagingCosts();
                 String input = Console.ReadLine();
-                PackagingCosts.Amount = Costs.InputToAmountFormatting(prod, input);
+                packagingCosts.Amount = FixInputFormat.InputToAmountFormatting(prod, input);
 
             }
-
-
-            // ICosts Packaging = new PackagingCosts();
-            // Packaging.Amount = amount;
-            //PackagingCosts.Amount = amount;
         }
 
-        public static void SetTransportCosts(Product prod)
+        public void SetTransportCosts(Product prod, TransportCosts transportCosts)
         {
-            if (TransportCosts.HasTransportCost)
+            if (transportCosts.HasTransportCost)
             {
-                Print.AskCustomerAboutTransportCosts();
-                decimal amount;
+                print.AskCustomerAboutTransportCosts();
                 String input = Console.ReadLine();
 
-                TransportCosts.Amount = Costs.InputToAmountFormatting(prod, input);
+                transportCosts.Amount = FixInputFormat.InputToAmountFormatting(prod, input);
             }
         }
 
-        public static void SetDiscountType(string discountType)
+        public void SetDiscountType(string discountType, AllDiscounts allDiscounts)
         {
-            Discount.DiscountType = discountType;
+            allDiscounts.discount.DiscountType = discountType;
+        }
+
+        public void HasCap(bool hasCap, Cap cap)
+        {
+            cap.HasCap = hasCap;
+        }
+        public void SetCap(Product prod, Cap cap)
+        {
+            if (cap.HasCap)
+            {
+                print.AskCustomerAboutCapAmount();
+                String input = Console.ReadLine();
+                cap.CapAmount = FixInputFormat.InputToAmountFormatting(prod, input);
+            }
+        }
+
+        public void SetCurrency(Currency currency)
+        {
+            print.AskCustomerAboutCurrency();
+            currency.currencyISOCode = Console.ReadLine();
         }
     }
 }

@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace PriceCalculatorKata
 {
-    public interface ICosts
+    public class Round
     {
-        public decimal Amount { get; set; }
-        public void Description();
+        public static int NumsOfFractionalDigits = 4;
     }
 }
-

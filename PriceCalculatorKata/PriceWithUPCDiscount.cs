@@ -9,18 +9,18 @@ namespace PriceCalculatorKata
     public class PriceWithUPCDiscount
     {
 
-        public static decimal DiscountAmount(Product product)
+        public decimal DiscountAmount(Product product, AllDiscounts allDiscounts)
         {
-            if (UPCDiscount.HasUPCDiscount(product))
+            if (allDiscounts.upcDiscount.HasUPCDiscount(product))
             {
-                if (Discount.DiscountType.Equals("Additive"))
+                if (allDiscounts.discount.DiscountType.Equals("Additive"))
                 {
-                    return Math.Round(product.Price * UPCDiscount.UPCDiscountPercentage(product), 2);
+                    return Math.Round(product.Price * allDiscounts.upcDiscount.UPCDiscountPercentage(product, allDiscounts), Round.NumsOfFractionalDigits);
 
                 }
-                else if (Discount.DiscountType.Equals("Multiplicative"))
+                else if (allDiscounts.discount.DiscountType.Equals("Multiplicative"))
                 {
-                    return Math.Round(PriceWithDiscount.PriceAfterDiscount(product) * UPCDiscount.UPCDiscountPercentage(product), 2);
+                    return Math.Round(allDiscounts.priceWithDiscount.PriceAfterDiscount(product, allDiscounts) * allDiscounts.upcDiscount.UPCDiscountPercentage(product ,allDiscounts), Round.NumsOfFractionalDigits);
                 }
                 else
                     return 0;
@@ -29,9 +29,9 @@ namespace PriceCalculatorKata
                 return 0;
         }
 
-        public static decimal PriceAfterUPCDiscount(Product product)
+        public decimal PriceAfterUPCDiscount(Product product, AllDiscounts allDiscounts)
         { 
-           return Math.Round(product.Price - DiscountAmount(product),2);
+           return Math.Round(product.Price - DiscountAmount(product, allDiscounts),Round.NumsOfFractionalDigits);
         }
     }
 }

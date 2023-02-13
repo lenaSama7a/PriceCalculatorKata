@@ -8,13 +8,13 @@ namespace PriceCalculatorKata
 {
     public class TransportCosts
     {
-        public static decimal Amount { get; set; } = 0;
-        public static bool HasTransportCost { get; set; }
+        public decimal Amount { get; set; } = 0;
+        public bool HasTransportCost { get; set; }
 
-        public static void Description()
+        public void Description(Currency currency)
         {
             if(HasTransportCost)
-            Console.WriteLine("Transport Costs has: $ " + Amount);
+            Console.WriteLine($"Transport Costs has: {Amount} {currency.currencyISOCode}" );
         }
     }
 }

@@ -7,22 +7,14 @@ using System.Threading.Tasks;
 namespace PriceCalculatorKata
 {
     public class PackagingCosts
-    //: ICosts
     {
-        //decimal ICosts.Amount { get; set; } 
-        //public void Description()
-        //{
-        //    Console.WriteLine("Packaging Costs  "); // how to print amount here?
-        //}
-        public static decimal Amount { get; set; } = 0;
-        public static bool HasPackagingCost { get; set; }
+        public decimal Amount { get; set; } = 0;
+        public bool HasPackagingCost { get; set; }
 
-        public static void Description()
+        public void Description(Currency currency)
         {
             if(HasPackagingCost)
-            Console.WriteLine("Packaging Costs has: $ " + Amount ); 
+            Console.WriteLine($"Packaging Costs has: {Amount} {currency.currencyISOCode}" ); 
         }
-
-        
     }
 }

@@ -8,17 +8,14 @@ namespace PriceCalculatorKata
 {
     public class PriceWithTax
     {
-
-        public static decimal TaxAmount(Product product)
+        public decimal TaxAmount(Product product, AllDiscounts allDiscounts, Tax tax)
         {
-            if (UPCDiscount.BeforeTax)
+            if (allDiscounts.upcDiscount.BeforeTax)
             {
-                return Math.Round((PriceWithUPCDiscount.PriceAfterUPCDiscount(product) * Tax.TaxPercentage), 2);
-                
+                return Math.Round((allDiscounts.PriceWithUPCDiscount.PriceAfterUPCDiscount(product, allDiscounts) * tax.TaxPercentage), Round.NumsOfFractionalDigits);
             }
             else
-            return Math.Round((product.Price * Tax.TaxPercentage),2);
+            return Math.Round((product.Price * tax.TaxPercentage),2);
         }
-
     }
 }

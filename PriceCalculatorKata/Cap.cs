@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace PriceCalculatorKata
 {
-    public class Tax
+    public class Cap
     {
-        public decimal TaxPercentage { get; set; }
-
+        public decimal CapAmount { get; set; }
+        public bool HasCap { get; set; }
 
     }
 }

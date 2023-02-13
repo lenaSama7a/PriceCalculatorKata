@@ -8,16 +8,16 @@ namespace PriceCalculatorKata
 {
     public class UPCDiscount
     {
-        public static Dictionary<int, decimal>? UPCDiscountList = new();
-        public static bool BeforeTax = false;
+        public Dictionary<int, decimal>? UPCDiscountList = new();
+        public bool BeforeTax = false;
 
-        public static decimal UPCDiscountPercentage(Product product)
+        public decimal UPCDiscountPercentage(Product product, AllDiscounts allDiscounts)
         {
-            if (UPCDiscount.HasUPCDiscount(product))
-                return UPCDiscount.UPCDiscountList[product.UPC];
+            if (allDiscounts.upcDiscount.HasUPCDiscount(product)) 
+                return allDiscounts.upcDiscount.UPCDiscountList[product.UPC];
             return 0;
         }
-        public static bool HasUPCDiscount(Product product)
+        public bool HasUPCDiscount(Product product)
         {
             bool hasUPCDiscount = UPCDiscountList.ContainsKey(product.UPC);
             return hasUPCDiscount;
