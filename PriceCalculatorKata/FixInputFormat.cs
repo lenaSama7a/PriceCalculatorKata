@@ -14,7 +14,7 @@ namespace PriceCalculatorKata
             char lastCharacter = input[input.Length - 1];
             if (lastCharacter == '%')
             {
-                amount = Math.Round(prod.Price * (Convert.ToDecimal(input.Remove(input.Length - 1, 1)) / 100), 2);
+                amount = Math.Round(prod.Price * (Convert.ToDecimal(input.Remove(input.Length - 1, 1)) / 100), Round.NumsOfFractionalDigits);
             }
             else
             {

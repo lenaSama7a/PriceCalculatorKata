@@ -8,32 +8,32 @@ namespace PriceCalculatorKata
 {
     public class PriceWithTaxAndDiscount
     {
-        public static decimal FinalPrice(Product product)
+        public decimal FinalPrice(Product product,Tax tax, AllDiscounts allDiscounts, PriceWithTax priceWithTax, Costs costs, Cap cap, PackagingCosts pc, TransportCosts tc)
         {
-            decimal discountAmount = PriceWithDiscount.DiscountAmount(product);
-            decimal taxAmount = PriceWithTax.TaxAmount(product);
-            decimal UPCDiscountAmount = PriceWithUPCDiscount.DiscountAmount(product);
+            decimal discountAmount = allDiscounts.priceWithDiscount.DiscountAmount(product, allDiscounts);
+            decimal taxAmount = priceWithTax.TaxAmount(product ,allDiscounts, tax);
+            decimal UPCDiscountAmount = allDiscounts.PriceWithUPCDiscount.DiscountAmount(product ,allDiscounts);
             
-            return Math.Round(product.Price - UsingDiscountOrCap(product) + taxAmount + Costs.CalculateCostsAmount(), 2);
+            return Math.Round(product.Price - UsingDiscountOrCap(product, cap, allDiscounts) + taxAmount + costs.CalculateCostsAmount(pc, tc), Round.NumsOfFractionalDigits);
         }
 
-        public static decimal TotalDiscount(Product product)
+        public decimal TotalDiscount(Product product, AllDiscounts allDiscounts)
         {
-            return (PriceWithDiscount.DiscountAmount(product) + PriceWithUPCDiscount.DiscountAmount(product));
+            return (allDiscounts.priceWithDiscount.DiscountAmount(product, allDiscounts) + allDiscounts.PriceWithUPCDiscount.DiscountAmount(product, allDiscounts));
         }
 
-        public static decimal UsingDiscountOrCap(Product prod)
+        public decimal UsingDiscountOrCap(Product prod, Cap cap, AllDiscounts allDiscounts)
         {
-            if (Cap.HasCap)
+            if (cap.HasCap)
             {
-                if (TotalDiscount(prod) >= Cap.CapAmount)
-                    return Cap.CapAmount;
+                if (TotalDiscount(prod, allDiscounts) >= cap.CapAmount)
+                    return cap.CapAmount;
                 else
-                    return TotalDiscount(prod);
+                    return TotalDiscount(prod, allDiscounts);
 
             }
             else
-                return TotalDiscount(prod);
+                return TotalDiscount(prod, allDiscounts);
 
 
         }

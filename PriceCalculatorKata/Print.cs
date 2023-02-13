@@ -8,144 +8,142 @@ namespace PriceCalculatorKata
 {
     public class Print
     {
-        public static void PrintProductInfo(Product product)
+        public void PrintProductInfo(Product product, Currency currency)
         {
             Console.ForegroundColor = ConsoleColor.Blue;
 
             Console.WriteLine($"Sample product: Book with name = {product.Name}," +
                 $" UPC = {product.UPC}," +
-                $" Price = ${product.Price}");
+                $" Price = {currency.currencyISOCode} + {product.Price}");
 
             Console.ForegroundColor = ConsoleColor.Gray;
-
-
         }
-        public static void PrintBasePrice(Product product)
+        public void PrintBasePrice(Product product, Currency currency)
         {
-            Console.WriteLine($"Product price before: ${product.Price}");
-
+            Console.WriteLine($"Product price before: {product.Price} {currency.currencyISOCode}");
         }
-        public static void PrintPriceWithTaxAndDiscount(Product product)
+        public void PrintPriceWithTaxAndDiscount(Product product, AllDiscounts allDiscounts, Tax tax, PriceWithTax priceWithTax, Costs costs, Cap cap, PackagingCosts pc, TransportCosts tc, Currency currency)
         {
-            Console.WriteLine($"Product price after : ${PriceWithTaxAndDiscount.FinalPrice(product)}");
-
+            Console.WriteLine($"Product price after : {Math.Round(allDiscounts.PriceWithTaxAndDiscount.FinalPrice(product, tax, allDiscounts, priceWithTax, costs, cap, pc, tc), 2) } {currency.currencyISOCode}");
         }
-
-        public static void PrintTaxPercentage(Product product)
+        public void PrintTaxPercentage(Product product, Tax tax)
         {
-            Console.WriteLine("Tax= " + Tax.TaxPercentage);
+            Console.WriteLine("Tax= " + tax.TaxPercentage);
         }
-        public static void PrintDiscountPercentage(Product product)
+        public void PrintDiscountPercentage(Product product, AllDiscounts allDiscounts)
         {
-            if (Discount.HasDiscount)
-                Console.WriteLine("Discount = " + Discount.DiscountPercentage);
+            if (allDiscounts.discount.HasDiscount)
+                Console.WriteLine("Discount = " + allDiscounts.discount.DiscountPercentage);
             else
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("no discount");
                 Console.ForegroundColor = ConsoleColor.Gray;
-
             }
         }
 
-        public static void PrintTaxAmount(Product product)
+        public void PrintTaxAmount(Product product, PriceWithTax priceWithTax, AllDiscounts allDiscounts, Tax tax, Currency currency)
         {
-            Console.WriteLine("Tax Amount = " + PriceWithTax.TaxAmount(product));
+            Console.WriteLine($"Tax Amount = {priceWithTax.TaxAmount(product, allDiscounts, tax)} {currency.currencyISOCode}");
         }
 
-        public static void PrintDiscountAmount(Product product)
+        public void PrintDiscountAmount(Product product, AllDiscounts allDiscounts, Currency currency)
         {
-            if (Discount.HasDiscount)
-                Console.WriteLine("Discount Amount = " + PriceWithDiscount.DiscountAmount(product) + " was deduced");
-
+            if (allDiscounts.discount.HasDiscount)
+                Console.WriteLine($"Discount Amount = {allDiscounts.priceWithDiscount.DiscountAmount(product, allDiscounts)} {currency.currencyISOCode} was deduced");
         }
 
-        public static void AskCustomerAboutTax()
+        public void AskCustomerAboutTax()
         {
             Console.WriteLine("Hello, How much is the tax imposed on the products?");
         }
 
-        public static void AskCustomerAboutDiscount()
+        public void AskCustomerAboutDiscount()
         {
             Console.WriteLine("How much is the discount?");
         }
 
-        public static void PrintAllInfo(Product prod)
+        public void PrintAllInfo(Product prod, Tax tax, AllDiscounts allDiscounts, Costs costs, Cap cap,
+            PriceWithTax priceWithTax, TransportCosts transportCosts, PackagingCosts packagingCosts, Currency currency)
         {
-            PrintProductInfo(prod);
-            PrintTaxPercentage(prod);
-            PrintDiscountPercentage(prod);
-            PrintUPCDiscountPercentage(prod);
+            PrintProductInfo(prod, currency);
+            PrintTaxPercentage(prod, tax);
+            PrintDiscountPercentage(prod, allDiscounts);
+            PrintUPCDiscountPercentage(prod, allDiscounts);
 
-            PrintTaxAmount(prod);
-            PrintDiscountAmount(prod);
-            PrintUPCDiscountAmount(prod);
+            PrintTaxAmount(prod, priceWithTax, allDiscounts, tax, currency);
+            PrintDiscountAmount(prod, allDiscounts, currency);
+            PrintUPCDiscountAmount(prod, allDiscounts, currency);
 
-            PrintTotalCosts();
-            PrintTotalDiscount(prod);
-
-            PrintBasePrice(prod);
-            PrintPriceWithTaxAndDiscount(prod);
+            PrintTotalCosts(costs, transportCosts, packagingCosts, currency);
+            PrintTotalDiscount(prod, allDiscounts, currency);
+            Console.WriteLine("The final result:");
+            PrintBasePrice(prod, currency);
+            PrintPriceWithTaxAndDiscount(prod, allDiscounts, tax, priceWithTax, costs, cap, packagingCosts, transportCosts, currency);
 
         }
 
-        public static void PrintUPCDiscountAmount(Product product)
+        public void PrintUPCDiscountAmount(Product product, AllDiscounts allDiscounts, Currency currency)
         {
-            if (UPCDiscount.HasUPCDiscount(product))
-                Console.WriteLine("UPC Discount Amount: " + PriceWithUPCDiscount.DiscountAmount(product));
-            if (UPCDiscount.BeforeTax)
-            {
-                Console.WriteLine(" Before Tax");
-            }
-
-        }
-
-        public static void PrintUPCDiscountPercentage(Product product)
-        {
-            if (UPCDiscount.HasUPCDiscount(product))
-                Console.WriteLine("UPC Discount Percentage: " + UPCDiscount.UPCDiscountPercentage(product));
-            if (UPCDiscount.BeforeTax)
+            if (allDiscounts.upcDiscount.HasUPCDiscount(product))
+                Console.WriteLine($"UPC Discount Amount: {allDiscounts.PriceWithUPCDiscount.DiscountAmount(product, allDiscounts)} {currency.currencyISOCode} ");
+            if (allDiscounts.upcDiscount.BeforeTax)
             {
                 Console.WriteLine(" Before Tax");
             }
         }
 
-        public static void AskCustomerAboutPackagingCosts()
+        public void PrintUPCDiscountPercentage(Product product, AllDiscounts allDiscounts)
+        {
+            if (allDiscounts.upcDiscount.HasUPCDiscount(product))
+                Console.WriteLine("UPC Discount Percentage: " + allDiscounts.upcDiscount.UPCDiscountPercentage(product, allDiscounts));
+            if (allDiscounts.upcDiscount.BeforeTax)
+            {
+                Console.WriteLine(" Before Tax");
+            }
+        }
+
+        public void AskCustomerAboutPackagingCosts()
         {
             Console.WriteLine("How much Packaging costs?");
         }
 
-        public static void PrintPackagingCosts()
+        public void PrintPackagingCosts(PackagingCosts packagingCosts, Currency currency)
         {
-            PackagingCosts.Description(); 
+            packagingCosts.Description(currency); 
         }
 
-        public static void AskCustomerAboutTransportCosts()
+        public void AskCustomerAboutTransportCosts()
         {
             Console.WriteLine("How much Transport costs?");
         }
 
-        public static void PrintTransportCosts()
+        public void PrintTransportCosts(TransportCosts transportCosts, Currency currency)
         {
-            TransportCosts.Description();
+            transportCosts.Description(currency);
         }
 
-        public static void PrintTotalCosts()
+        public void PrintTotalCosts(Costs costs, TransportCosts transportCosts, PackagingCosts packagingCosts, Currency currency)
         {
-            if(Costs.CalculateCostsAmount() > 0)
+            if(costs.CalculateCostsAmount(packagingCosts, transportCosts) > 0)
             {
-                PrintTransportCosts();
-                PrintPackagingCosts();
+                PrintTransportCosts(transportCosts, currency);
+                PrintPackagingCosts(packagingCosts, currency);
             }
 
         }
-        public static void PrintTotalDiscount(Product prod)
+        public void PrintTotalDiscount(Product prod, AllDiscounts allDiscounts, Currency currency)
         {
-            Console.WriteLine("Total Discount: "+ PriceWithTaxAndDiscount.TotalDiscount(prod));
+            Console.WriteLine($"Total Discount: {allDiscounts.PriceWithTaxAndDiscount.TotalDiscount(prod, allDiscounts)} {currency.currencyISOCode} ");
         }
 
-        internal static void AskCustomerAboutCapAmount()
+        public void AskCustomerAboutCapAmount()
         {
             Console.WriteLine("How much cap amount? ");        }
+
+        public void AskCustomerAboutCurrency()
+        {
+            Console.WriteLine("What is the currency you would to use?");
+        }
     }
 }

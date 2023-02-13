@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace PriceCalculatorKata
 {
-    public class Tax
+    public class Currency
     {
-        public decimal TaxPercentage { get; set; }
-
+        public string currencyISOCode { get; set; }
 
     }
 }

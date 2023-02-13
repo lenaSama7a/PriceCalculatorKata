@@ -9,9 +9,9 @@ namespace PriceCalculatorKata
     public class Costs
     {
 
-        public static decimal CalculateCostsAmount()
+        public decimal CalculateCostsAmount(PackagingCosts packagingCosts, TransportCosts transportCosts)
         {
-            return Math.Round( PackagingCosts.Amount + TransportCosts.Amount,2);
+            return Math.Round(packagingCosts.Amount + transportCosts.Amount, Round.NumsOfFractionalDigits);
         }
 
     }

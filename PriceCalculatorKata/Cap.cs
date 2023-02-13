@@ -8,8 +8,8 @@ namespace PriceCalculatorKata
 {
     public class Cap
     {
-        public static decimal CapAmount { get; set; }
-        public static bool HasCap { get; set; }
+        public decimal CapAmount { get; set; }
+        public bool HasCap { get; set; }
 
     }
 }

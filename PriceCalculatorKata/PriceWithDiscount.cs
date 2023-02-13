@@ -8,26 +8,26 @@ namespace PriceCalculatorKata
 {
     public class PriceWithDiscount
     {
-        public static decimal DiscountAmount(Product product)
+        public decimal DiscountAmount(Product product, AllDiscounts allDiscounts)
         {
             decimal discountAmount;
-            if (UPCDiscount.BeforeTax)
+            if (allDiscounts.upcDiscount.BeforeTax)
             {
-                discountAmount= Discount.HasDiscount ? Math.Round((PriceWithUPCDiscount.PriceAfterUPCDiscount(product) * Discount.DiscountPercentage), 2) : 0;
+                discountAmount= allDiscounts.discount.HasDiscount ? Math.Round((allDiscounts.PriceWithUPCDiscount.PriceAfterUPCDiscount(product, allDiscounts) * allDiscounts.discount.DiscountPercentage), Round.NumsOfFractionalDigits) : 0;
 
             }
             else
             {
-                discountAmount = Discount.HasDiscount ? Math.Round((product.Price * Discount.DiscountPercentage), 2) : 0;
+                discountAmount = allDiscounts.discount.HasDiscount ? Math.Round((product.Price * allDiscounts.discount.DiscountPercentage), Round.NumsOfFractionalDigits) : 0;
 
             }
             return discountAmount;
         }
 
-        public static decimal PriceAfterDiscount(Product product)
+        public decimal PriceAfterDiscount(Product product, AllDiscounts allDiscounts)
         {
             decimal price = product.Price;
-            return Math.Round(price - DiscountAmount(product), 2);
+            return Math.Round(price - DiscountAmount(product ,allDiscounts), Round.NumsOfFractionalDigits);
         }
     }
 }
